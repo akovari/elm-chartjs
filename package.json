@@ -1,0 +1,31 @@
+{
+  "name": "elm-chartjs",
+  "version": "0.0.1",
+  "description": "Elm bindings for Chart.js, with CommonsJS support",
+  "main": "index.js",
+  "directories": {
+    "example": "examples"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/altworx/elm-chartjs.git"
+  },
+  "keywords": [
+    "elm",
+    "chart",
+    "chartjs",
+    "commonjs"
+  ],
+  "author": "Adam Kovari <kovariadam@gmail.com>",
+  "license": "BSD3",
+  "bugs": {
+    "url": "https://github.com/altworx/elm-chartjs/issues"
+  },
+  "homepage": "https://github.com/altworx/elm-chartjs#readme",
+  "dependencies": {
+    "chart.js": "^1.0.2"
+  }
+}
