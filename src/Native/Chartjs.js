@@ -1,4 +1,5 @@
 const Chart = require('chartjs');
+require('chart-stackedbar-js');
 
 var sanitize = function sanitize(record) {
     var spaces = Array.prototype.slice.call(arguments, 1);

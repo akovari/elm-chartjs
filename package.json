@@ -1,6 +1,6 @@
 {
   "name": "elm-chartjs",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Elm bindings for Chart.js, with CommonsJS support",
   "main": "index.js",
   "directories": {
@@ -26,6 +26,7 @@
   },
   "homepage": "https://github.com/altworx/elm-chartjs#readme",
   "dependencies": {
+    "chart-stackedbar-js": "^1.0.3",
     "chart.js": "^1.0.2"
   }
 }

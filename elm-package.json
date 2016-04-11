@@ -1,5 +1,5 @@
 {
-    "version": "1.0.0",
+    "version": "0.0.2",
     "summary": "Chartjs Bindings for Elm",
     "repository": "https://github.com/Fresheyeball/elm-chartjs.git",
     "license": "BSD3",
@@ -9,6 +9,7 @@
     "exposed-modules": [
         "Chartjs.Line",
         "Chartjs.Bar",
+        "Chartjs.StackedBar",
         "Chartjs.Radar",
         "Chartjs.Polar",
         "Chartjs.Pie",
