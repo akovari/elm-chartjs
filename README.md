@@ -6,6 +6,7 @@ Bindings exist for all 6 Chartjs chart types
 
 - Line
 - Bar
+- StackedBar
 - Radar
 - Polar
 - Pie
