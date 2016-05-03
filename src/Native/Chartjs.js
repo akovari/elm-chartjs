@@ -1,105 +1,85 @@
-const Chart = require('chartjs');
-require('chart-stackedbar-js');
+const Chart = require('chart.js');
 
-var sanitize = function sanitize(record) {
-    var spaces = Array.prototype.slice.call(arguments, 1);
+const sanitize = function (record) {
+    const spaces = Array.prototype.slice.call(arguments, 1);
     return spaces.reduce(function (r, space) {
-        return (function () {
-            r[space] ? void 0 : r[space] = {};
-            return r[space];
-        })();
+        r[space] ? void 0 : r[space] = {};
+        return r[space];
     }, record);
 };
-var createNode = function createNode(elementType) {
-    return function () {
-        var nø1 = document.createElement(elementType);
-        return (function () {
-            nø1.style.padding = 0;
-            nø1.style.margin = 0;
-            nø1.style.position = 'relative';
-            return nø1;
-        })();
-    }.call(this);
+
+const createNode = function (elementType) {
+    var n_1 = document.createElement(elementType);
+    n_1.style.padding = 0;
+    n_1.style.margin = 0;
+    n_1.style.position = 'relative';
+    return n_1;
 };
-var setWrapSize = function setWrapSize(wrap, wh) {
-    return function () {
-        var setWHø1 = function (w_, h_, x) {
-            return (function () {
-                x.width = w_ + 'px';
-                return x.height = h_ + 'px';
-            })();
-        };
-        var ratioø1 = window.devicePixelRatio ? window.devicePixelRatio : 1;
-        var canvasø1 = wrap.firstChild;
-        return (function () {
-            setWHø1(wh.w * ratioø1, wh.h * ratioø1, canvasø1);
-            setWHø1(wh.w, wh.h, wrap.style);
-            return setWHø1(wh.w, wh.h, canvasø1.style);
-        })();
-    }.call(this);
-};
-var update = function update(type) {
-    return function (wrap, _, model) {
-        return (function () {
-            setWrapSize(wrap, model);
-            wrap.__chart ? (function () {
-                wrap.__chart.clear();
-                return wrap.__chart.destroy();
-            })() : void 0;
-            wrap.__chart = new Chart(wrap.firstChild.getContext('2d'))[type](model.data, model.options);
-            return wrap;
-        })();
+
+const setWrapSize = function (wrap, wh) {
+    const setWH_1 = function (w_, h_, x) {
+        x.width = w_ + 'px';
+        return x.height = h_ + 'px';
     };
+    const ratio_1 = window.devicePixelRatio ? window.devicePixelRatio : 1;
+    const canvas_1 = wrap.getElementsByTagName('canvas')[0];
+    setWH_1(wh.w * ratio_1, wh.h * ratio_1, canvas_1);
+    setWH_1(wh.w, wh.h, wrap.style);
+    setWH_1(wh.w, wh.h, canvas_1.style);
 };
-var render = function render(type, NativeElement) {
+
+const update = function (wrap, _, model) {
+    setWrapSize(wrap, model);
+    if (wrap.__chart) {
+        wrap.__chart.clear();
+        wrap.__chart.destroy()
+    }
+    wrap.__chart = new Chart(wrap.getElementsByTagName('canvas')[0].getContext('2d'), model.value).resize();
+    return wrap;
+};
+
+const render = function (NativeElement) {
     return function (model) {
-        return function () {
-            var wrapø1 = createNode('div');
-            var canvasø1 = NativeElement.createNode('canvas');
-            return (function () {
-                wrapø1.appendChild(canvasø1);
-                setWrapSize(wrapø1, model);
-                setTimeout(function () {
-                    return update(type)(wrapø1, model, model);
-                }, 0);
-                return wrapø1;
-            })();
-        }.call(this);
+        const wrap_1 = createNode('div');
+        const canvas_1 = NativeElement.createNode('canvas');
+        wrap_1.appendChild(canvas_1);
+        setWrapSize(wrap_1, model);
+        setTimeout(function () {
+            return update(wrap_1, model, model);
+        }, 0);
+        return wrap_1;
     };
 };
-var showRGBA = function showRGBA(c) {
+
+const showRGBA = function (c) {
     return 'rgba(' + c._0 + ',' + c._1 + ',' + c._2 + ',' + c._3 + ')';
 };
-var chartRaw = function chartRaw(NativeElement) {
-    return function (type, w, h, data, options) {
+
+const chartRaw = function (NativeElement) {
+    return function (w, h, value) {
         return A3(NativeElement.newElement, w, h, {
             'ctor': 'Custom',
             'type': 'Chart',
-            'render': render(type, NativeElement),
-            'update': update(type),
+            'render': render(NativeElement),
+            'update': update,
             'model': {
                 'w': w,
                 'h': h,
-                'data': data,
-                'options': options
+                'value': JSON.parse(value)
             }
         });
     };
 };
-var make = function make(localRuntime) {
-    return function () {
-        var NativeElementø1 = Elm.Native.Graphics.Element.make(localRuntime);
-        var toArrayø1 = (Elm.Native.List.make(localRuntime) || 0)['toArray'];
-        return (function () {
-            sanitize(localRuntime, 'Native', 'Chartjs');
-            return localRuntime.Native.Chartjs.values ? localRuntime.Native.Chartjs.values : localRuntime.Native.Chartjs.values = {
-                'toArray': toArrayø1,
-                'showRGBA': showRGBA,
-                'chartRaw': F5(chartRaw(NativeElementø1))
-            };
-        })();
-    }.call(this);
+
+const make = function (localRuntime) {
+    const NativeElement_1 = Elm.Native.Graphics.Element.make(localRuntime);
+    sanitize(localRuntime, 'Native', 'Chartjs');
+    return localRuntime.Native.Chartjs.values ? localRuntime.Native.Chartjs.values : localRuntime.Native.Chartjs.values = {
+        'showRGBA': showRGBA,
+        'chartRaw': F3(chartRaw(NativeElement_1))
+    };
 };
+
 sanitize(Elm, 'Native', 'Chartjs');
 Elm.Native.Chartjs.make = make;
 Chart.defaults.global.animation = false;
