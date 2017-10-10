@@ -1,6 +1,6 @@
 {
   "name": "elm-chartjs",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Elm bindings for Chart.js, with CommonsJS support",
   "main": "index.js",
   "directories": {
